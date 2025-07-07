@@ -1,0 +1,70 @@
+<html>
+<head>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+  <div x-data="setup()">
+    <li style="display:grid; grid-auto-flow: column; grid-auto-columns: 20em">
+      <label>Tea Water (in liTers)</label>
+      <input type="number" x-model.debounce.300ms="teaWater" min=0.00/>
+    </li>
+    <li style="display:grid; grid-auto-flow: column; grid-auto-columns: 20em">
+      <label>Tea Leaves (in grams)</label>
+      <input type="number" x-model.debounce="teaLeaves" \>
+    </li>
+    <li style="display:grid; grid-auto-flow: column; grid-auto-columns: 20em">
+      <label>Starter Tea (in liters)</label>
+      <input type="number" x-model.debounce="starterTea" \>
+    </li>
+    <li style="display:grid; grid-auto-flow: column; grid-auto-columns: 20em">
+      <label>Sugar (in grams)</label>
+      <input type="number" x-model.debounce="sugar" \>
+    </li>
+    <li style="display:grid; grid-auto-flow: column; grid-auto-columns: 20em">
+      <label>Brew Container Volume (in liters)</label>
+      <input type="number" x-model.debounce="containerSize" \>
+    </li>
+  </div>
+  <script>
+    function setup() {
+      state = {
+        teaWaterLiters: 0.00, 
+        get teaWater() {
+          return this.teaWaterLiters.toFixed(2)
+        },
+        set teaWater(waterLiters) {
+          this.teaWaterLiters = (waterLiters * 1) // This is a typecast from string to number
+        },
+        get teaLeaves() {
+          return (this.teaWater / 0.15).toFixed(2)
+        },
+        set teaLeaves(leavesGrams) {
+          this.teaWater = leavesGrams * 0.15
+        },
+        get sugar() {
+          return (this.teaWater  * 75).toFixed(2)
+        },
+        set sugar(sugarGrams) {
+          this.teaWater = sugarGrams / 75
+        },
+        get starterTea() {
+          return (this.teaWater * 0.5/3).toFixed(2)
+        },
+        set starterTea(starterTeaLiters) {
+          this.teaWater = starterTeaLiters * (6)
+        },
+        get containerSize() {
+          return ((this.teaWater / 3) * 4).toFixed(2)
+        },
+        set containerSize(sizeLiters) {
+          this.teaWater = (sizeLiters / 4) * 3
+        }
+      }
+
+      state.teaWaterLiters = 3.00
+
+      return state
+    }
+  </script>
+</body>
+</html>
